@@ -1,0 +1,68 @@
+body {
+    background: url(https://html5book.ru/wp-content/uploads/2015/07/background39.png);
+}
+
+.App {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    flex-wrap: wrap;
+}
+
+.counterBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 8px;
+    background-color: #fff;
+    max-width: 600px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 20px 50px 0 rgb(0 0 0 / 25%);
+}
+
+.counterBody_box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+
+.Limited {
+    color: red;
+}
+
+.countValue {
+    font-size: 50px;
+}
+
+button {
+    background-color: lightgreen;
+    margin: 10px;
+    box-shadow: 0 20px 50px 0 rgb(0 0 0 / 25%);
+    border: none;
+    font-size: 30px;
+    border-radius: 4px;
+}
+
+.buttonBox {
+    display: flex;
+    justify-content: center;
+}
+
+
+.input_box {
+    border-radius: 8px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid greenyellow;
+
+
+}
+
+.error {
+    border: 1px solid red;
+
+}
