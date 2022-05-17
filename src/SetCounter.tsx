@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Button from './Button';
 import {Input} from './input';
+import {restoreState} from './localStorage/localStorage';
 
 
 type setCounterType = {
@@ -15,20 +16,13 @@ export const SetCounter = (props: setCounterType) => {
     const [startValue, setStartValue] = useState<number>(0);
 
     useEffect(()=>{
-        let maxValue = localStorage.getItem('maxValue');
-        if (maxValue) {
-            setMaxValue(JSON.parse(maxValue));
-        }
-
+        let value = restoreState('maxValue',maxValue)
+        setMaxValue(value)
     },[])
 
-
     useEffect(()=>{
-        let minValue = localStorage.getItem('startValue');
-        if (minValue) {
-            setStartValue(JSON.parse(minValue));
-        }
-
+        let value = restoreState('startValue',startValue)
+        setStartValue(value)
     },[])
 
 

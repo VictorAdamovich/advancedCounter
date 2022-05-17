@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Counter} from './Counter';
 import {SetCounter} from './SetCounter';
+import {restoreState, saveState} from './localStorage/localStorage';
 
 function App() {
     const [count, setCount] = useState<number>(0);
@@ -9,31 +10,26 @@ function App() {
     const [startValue, setStartValue] = useState<number>(0);
 
 
-
-    useEffect(() => {
-        let countValue = localStorage.getItem('count');
-        if (countValue) {
-            setCount(JSON.parse(countValue));
-        }
-    }, []);
-
+    useEffect(()=>{
+        let value = restoreState('count',count)
+        setCount(value)
+    },[])
 
     const addNumber = () => {
         let newCount = count + 1;
-        localStorage.setItem('count', JSON.stringify(newCount));
+        saveState('count',newCount)
         setCount(newCount);
     };
 
     const resetCounter = () => {
-        localStorage.setItem('count', JSON.stringify(startValue));
+        saveState('count',startValue)
         setCount(startValue);
     };
 
     const setInputValue = (maxValue: number, startValue: number) => {
-        localStorage.setItem('count', JSON.stringify(startValue));
-        localStorage.setItem('maxValue', JSON.stringify(maxValue));
-        localStorage.setItem('startValue', JSON.stringify(startValue));
-
+        saveState('count',startValue)
+        saveState('maxValue',maxValue)
+        saveState('startValue',startValue)
         setMaxValue(maxValue);
         setStartValue(startValue);
         setCount(startValue);
