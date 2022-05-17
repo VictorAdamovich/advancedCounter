@@ -5,7 +5,7 @@ export type counterType = {
     count: number
     maxValue: number
     startValue: number
-    addNumber: () => void
+    countIncrement: () => void
     resetCounter: () => void
 }
 
@@ -18,7 +18,7 @@ export function Counter(props: counterType) {
                     className={props.count < props.maxValue ? 'countValue' : 'countValue Limited'}>{props.count}</span>
             </div>
             <div className="buttonBox">
-                <Button id={1} onClickCallback={props.addNumber} name={'Inc'} disabled={props.count >= props.maxValue}/>
+                <Button id={1} onClickCallback={props.countIncrement} name={'Inc'} disabled={props.count >= props.maxValue}/>
                 <Button id={2} onClickCallback={props.resetCounter} name={'Res'} disabled={props.count === props.startValue}/>
             </div>
         </div>

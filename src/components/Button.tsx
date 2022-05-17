@@ -1,13 +1,13 @@
 import React from 'react';
 
-type buttonType={
-    id:number
-    name:string
-    onClickCallback:React.MouseEventHandler<HTMLButtonElement>
+type buttonType = {
+    id: number
+    name: string
+    onClickCallback: React.MouseEventHandler<HTMLButtonElement>
     disabled?: boolean
 }
 
-export const Button = (props:buttonType) => {
+export const Button = (props: buttonType) => {
     return (
         <div>
             <button

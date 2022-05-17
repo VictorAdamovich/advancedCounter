@@ -1,35 +1,36 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Counter} from './Counter';
-import {SetCounter} from './SetCounter';
+import {Counter} from './components/Counter';
+import {CounterSettings} from './components/CounterSettings';
 import {restoreState, saveState} from './localStorage/localStorage';
 
 function App() {
     const [count, setCount] = useState<number>(0);
     const [maxValue, setMaxValue] = useState<number>(5);
     const [startValue, setStartValue] = useState<number>(0);
+    // const [error, setError] = useState<boolean>(false);
 
 
-    useEffect(()=>{
-        let value = restoreState('count',count)
-        setCount(value)
-    },[])
+    useEffect(() => {
+        let value = restoreState('count', count);
+        setCount(value);
+    }, []);
 
-    const addNumber = () => {
+    const countIncrement = () => {
         let newCount = count + 1;
-        saveState('count',newCount)
+        saveState('count', newCount);
         setCount(newCount);
     };
 
     const resetCounter = () => {
-        saveState('count',startValue)
+        saveState('count', startValue);
         setCount(startValue);
     };
 
     const setInputValue = (maxValue: number, startValue: number) => {
-        saveState('count',startValue)
-        saveState('maxValue',maxValue)
-        saveState('startValue',startValue)
+        saveState('count', startValue);
+        saveState('maxValue', maxValue);
+        saveState('startValue', startValue);
         setMaxValue(maxValue);
         setStartValue(startValue);
         setCount(startValue);
@@ -37,7 +38,7 @@ function App() {
 
     return (
         <div className="App">
-            <SetCounter
+            <CounterSettings
                 maxValue={maxValue}
                 startValue={startValue}
                 setInputValue={setInputValue}
@@ -46,7 +47,7 @@ function App() {
                 count={count}
                 maxValue={maxValue}
                 startValue={startValue}
-                addNumber={addNumber}
+                countIncrement={countIncrement}
                 resetCounter={resetCounter}
             />
         </div>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Button from './Button';
 import {Input} from './input';
-import {restoreState} from './localStorage/localStorage';
+import {restoreState} from '../localStorage/localStorage';
 
 
 type setCounterType = {
@@ -11,19 +11,19 @@ type setCounterType = {
 }
 
 
-export const SetCounter = (props: setCounterType) => {
+export const CounterSettings = (props: setCounterType) => {
     const [maxValue, setMaxValue] = useState<number>(0);
     const [startValue, setStartValue] = useState<number>(0);
 
-    useEffect(()=>{
-        let value = restoreState('maxValue',maxValue)
-        setMaxValue(value)
-    },[])
+    useEffect(() => {
+        let value = restoreState('maxValue', maxValue);
+        setMaxValue(value);
+    }, []);
 
-    useEffect(()=>{
-        let value = restoreState('startValue',startValue)
-        setStartValue(value)
-    },[])
+    useEffect(() => {
+        let value = restoreState('startValue', startValue);
+        setStartValue(value);
+    }, []);
 
 
     const setMax = (maxValue: number) => {
