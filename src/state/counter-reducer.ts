@@ -1,8 +1,11 @@
+import {saveState} from '../localStorage/localStorage';
+
 const INCREMENT = 'INCREMENT';
 const RESET_COUNT = 'RESET-COUNT';
 const SET_INPUT_VALUE = 'SET-INPUT-VALUE-COUNT';
 const INPUT_MAX_VALUE = 'INPUT-MAX-VALUE';
 const INPUT_MIN_VALUE = 'INPUT-MIN-VALUE';
+const ON_LOAD_SET_VALUE = 'ON-LOAD-SET-VALUE';
 
 
 type initialStateType = {
@@ -28,22 +31,29 @@ type ActionsType = ReturnType<typeof incrementCountValueAC>
     | ReturnType<typeof setInputValueAC>
     | ReturnType<typeof inputMaxValueAC>
     | ReturnType<typeof inputMinValueAC>
+    | ReturnType<typeof onLoadSetCountAC>
 
 export const counterReducer = (state: initialStateType = initialState, action: ActionsType): any => {
     switch (action.type) {
         case INCREMENT: {
+            let counterInc=state.countValue + 1
+            saveState('count', counterInc);
             return ({
                 ...state,
-                countValue: state.countValue + 1
+                countValue: counterInc
             });
         }
         case RESET_COUNT: {
+            saveState('count', state.countMinValue);
             return ({
                 ...state,
                 countValue: state.countMinValue
             });
         }
-        case 'SET-INPUT-VALUE-COUNT': {
+        case SET_INPUT_VALUE: {
+            saveState('count', state.inputMinValue);
+            saveState('maxValue', state.inputMaxValue);
+            saveState('minValue', state.inputMinValue);
             return ({
                     ...state,
                     countValue: state.inputMinValue,
@@ -52,20 +62,28 @@ export const counterReducer = (state: initialStateType = initialState, action: A
                 }
             );
         }
-        case 'INPUT-MAX-VALUE': {
+        case INPUT_MAX_VALUE: {
             return ({
                 ...state,
                 inputMaxValue: action.payload.value
             });
         }
-        case 'INPUT-MIN-VALUE': {
+        case INPUT_MIN_VALUE: {
             return ({
                 ...state,
                 inputMinValue: action.payload.value
             });
         }
-
-
+        case ON_LOAD_SET_VALUE:{
+            return ({
+                ...state,
+                countValue: action.payload.minValue,
+                countMaxValue: action.payload.maxValue,
+                countMinValue: action.payload.minValue,
+                inputMaxValue: action.payload.maxValue,
+                inputMinValue: action.payload.minValue
+            })
+        }
         default:
             return state;
     }
@@ -88,4 +106,8 @@ export const inputMaxValueAC = (value: number) => {
 
 export const inputMinValueAC = (value: number) => {
     return {type: INPUT_MIN_VALUE, payload: {value}} as const;
+};
+
+export const onLoadSetCountAC = (maxValue: number, minValue: number) => {
+    return {type: ON_LOAD_SET_VALUE, payload: {maxValue, minValue}} as const;
 };
