@@ -2,24 +2,25 @@ import React from 'react';
 import Button from './Button';
 
 export type counterType = {
-    count: number
-    maxValue: number
-    startValue: number
-    countIncrement: () => void
-    resetCounter: () => void
+    countValue: number
+    counterLimited: boolean
+    incrementCountCB: () => void
+    resetCountCB: () => void
 }
 
 
 export function Counter(props: counterType) {
+    const counterClassName = props.counterLimited ? 'countValue Limited ' : 'countValue';
+
     return (
         <div className={'counterBody'}>
             <div className="counterBody_box">
                 <span
-                    className={props.count < props.maxValue ? 'countValue' : 'countValue Limited'}>{props.count}</span>
+                    className={counterClassName}>{props.countValue}</span>
             </div>
             <div className="buttonBox">
-                <Button id={1} onClickCallback={props.countIncrement} name={'Inc'} disabled={props.count >= props.maxValue}/>
-                <Button id={2} onClickCallback={props.resetCounter} name={'Res'} disabled={props.count === props.startValue}/>
+                <Button id={1} onClickCallback={props.incrementCountCB} name={'Inc'} disabled={props.counterLimited}/>
+                <Button id={2} onClickCallback={props.resetCountCB} name={'Res'} disabled={!props.counterLimited}/>
             </div>
         </div>
     );

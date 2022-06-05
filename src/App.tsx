@@ -1,54 +1,47 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
 import {Counter} from './components/Counter';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from './state/store';
+import {
+    incrementCountValueAC,
+    inputMaxValueAC,
+    inputMinValueAC,
+    resetCountValueAC,
+    setInputValueAC
+} from './state/counter-reducer';
 import {CounterSettings} from './components/CounterSettings';
-import {restoreState, saveState} from './localStorage/localStorage';
 
 function App() {
-    const [count, setCount] = useState<number>(0);
-    const [maxValue, setMaxValue] = useState<number>(5);
-    const [startValue, setStartValue] = useState<number>(0);
-    // const [error, setError] = useState<boolean>(false);
+    const countValue = useSelector<AppRootStateType, number>(state => state.counter.countValue);
+    const countMaxValue = useSelector<AppRootStateType, number>(state => state.counter.countMaxValue);
+    const inputMaxValue = useSelector<AppRootStateType, number>(state => state.counter.inputMaxValue);
+    const inputMinValue = useSelector<AppRootStateType, number>(state => state.counter.inputMinValue);
 
+    const dispatch = useDispatch();
+    const incrementCountCB = () => dispatch(incrementCountValueAC());
+    const resetCountCB = () => dispatch(resetCountValueAC());
+    const setInputValue = () => dispatch(setInputValueAC());
+    const onChangeHandlerSetMaxValue = (value: number) => dispatch(inputMaxValueAC(value));
+    const onChangeHandlerSetMinxValue = (value: number) => dispatch(inputMinValueAC(value));
 
-    useEffect(() => {
-        let value = restoreState('count', count);
-        setCount(value);
-    }, []);
-
-    const countIncrement = () => {
-        let newCount = count + 1;
-        saveState('count', newCount);
-        setCount(newCount);
-    };
-
-    const resetCounter = () => {
-        saveState('count', startValue);
-        setCount(startValue);
-    };
-
-    const setInputValue = (maxValue: number, startValue: number) => {
-        saveState('count', startValue);
-        saveState('maxValue', maxValue);
-        saveState('startValue', startValue);
-        setMaxValue(maxValue);
-        setStartValue(startValue);
-        setCount(startValue);
-    };
+    const counterLimited = countValue >= countMaxValue;
 
     return (
         <div className="App">
             <CounterSettings
-                maxValue={maxValue}
-                startValue={startValue}
+                inputMaxValue={inputMaxValue}
+                inputMinValue={inputMinValue}
                 setInputValue={setInputValue}
+                onChangeHandlerSetMaxValue={onChangeHandlerSetMaxValue}
+                onChangeHandlerSetMinxValue={onChangeHandlerSetMinxValue}
             />
+
             <Counter
-                count={count}
-                maxValue={maxValue}
-                startValue={startValue}
-                countIncrement={countIncrement}
-                resetCounter={resetCounter}
+                countValue={countValue}
+                counterLimited={counterLimited}
+                incrementCountCB={incrementCountCB}
+                resetCountCB={resetCountCB}
             />
         </div>
     );

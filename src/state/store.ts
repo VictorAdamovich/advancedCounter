@@ -1,20 +1,11 @@
-export let store={
-    _state:{
-        count:{
-            renderCount:0,
-            preRenderCount:0,
-        },
-        maxValue:{
-            renderMaxValue:0,
-            preRenderMaxValue:0
-        },
-        startValue:{
-            renderStartValue:0,
-            preRenderStartValue:0
-        },
+import {combineReducers, createStore} from 'redux';
+import {counterReducer} from './counter-reducer';
 
-    },
-    getState(){
-        return this._state
-    }
-}
+export type AppRootStateType= ReturnType<typeof rootReducer>
+
+export const rootReducer = combineReducers({
+    counter:counterReducer
+})
+
+
+export const store = createStore(rootReducer)

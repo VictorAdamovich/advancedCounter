@@ -4,10 +4,8 @@ type InitValueType = {
     title: string
     value: number
     callback: (value: number) => void
-    error:boolean
+    error?:boolean
 }
-
-
 
 
 export const Input = (props: InitValueType) => {
