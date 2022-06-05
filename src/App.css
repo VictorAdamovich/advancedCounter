@@ -48,6 +48,10 @@ button {
     border-radius: 4px;
 }
 
+button:active{
+    color: gray;
+}
+
 .buttonBox {
     display: flex;
     justify-content: center;
@@ -59,11 +63,9 @@ button {
     padding: 5px;
     margin: 5px;
     border: 1px solid greenyellow;
-
-
 }
 
 .error {
     border: 1px solid red;
-
+    background-color: rgba(255, 0, 0, 0.31);
 }
