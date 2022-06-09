@@ -1,31 +1,34 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
 import {
     incrementCountValueAC,
     inputMaxValueAC,
-    inputMinValueAC, onLoadSetCountAC,
+    inputMinValueAC,
+    onLoadSetCountAC,
     resetCountValueAC,
     setInputValueAC
-} from './state/counter-reducer';
-import {CounterSettings} from './components/CounterSettings';
-import {restoreState} from './localStorage/localStorage';
-import {Counter} from './components/Counter';
+} from './state/counterReducer';
+import {CounterSettings} from './components/counterSettings';
+import {restoreState} from './state/localStorage';
+import {Counter} from './components/counter';
 
-function App() {
-    const countValue = useSelector<AppRootStateType, number>(state => state.counter.countValue);
+const getCounterValue = (state: AppRootStateType): number => state.counter.countValue;
+
+export const App = () => {
+    const countValue = useSelector(getCounterValue);
     const countMaxValue = useSelector<AppRootStateType, number>(state => state.counter.countMaxValue);
     const countMinValue = useSelector<AppRootStateType, number>(state => state.counter.countMinValue);
     const inputMaxValue = useSelector<AppRootStateType, number>(state => state.counter.inputMaxValue);
     const inputMinValue = useSelector<AppRootStateType, number>(state => state.counter.inputMinValue);
 
     const dispatch = useDispatch();
-    const incrementCountCB = () => dispatch(incrementCountValueAC());
-    const resetCountCB = () => dispatch(resetCountValueAC());
-    const setInputValue = () => dispatch(setInputValueAC());
-    const onChangeHandlerSetMaxValue = (value: number) => dispatch(inputMaxValueAC(value));
-    const onChangeHandlerSetMinxValue = (value: number) => dispatch(inputMinValueAC(value));
+    const incrementCountCB = useCallback(() => dispatch(incrementCountValueAC()), []);
+    const resetCountCB = useCallback(() => dispatch(resetCountValueAC()), []);
+    const setInputValue = useCallback(() => dispatch(setInputValueAC()), []);
+    const onChangeHandlerSetMaxValue = useCallback((value: number) => dispatch(inputMaxValueAC(value)), []);
+    const onChangeHandlerSetMinxValue = useCallback((value: number) => dispatch(inputMinValueAC(value)), []);
 
     useEffect(() => {
         let maxValueFromLS = restoreState('maxValue', inputMaxValue);
@@ -58,6 +61,4 @@ function App() {
             />
         </div>
     );
-}
-
-export default App;
+};

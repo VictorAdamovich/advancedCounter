@@ -1,4 +1,4 @@
-import {saveState} from '../localStorage/localStorage';
+import {saveState} from './localStorage';
 
 const INCREMENT = 'INCREMENT';
 const RESET_COUNT = 'RESET-COUNT';
@@ -8,7 +8,7 @@ const INPUT_MIN_VALUE = 'INPUT-MIN-VALUE';
 const ON_LOAD_SET_VALUE = 'ON-LOAD-SET-VALUE';
 
 
-type initialStateType = {
+export type InitialStateType = {
     countValue: number
     countMaxValue: number
     countMinValue: number
@@ -17,7 +17,7 @@ type initialStateType = {
 }
 
 
-const initialState: initialStateType = {
+const initialState: InitialStateType = {
     countValue: 1,
     countMaxValue: 5,
     countMinValue: 1,
@@ -33,7 +33,7 @@ type ActionsType = ReturnType<typeof incrementCountValueAC>
     | ReturnType<typeof inputMinValueAC>
     | ReturnType<typeof onLoadSetCountAC>
 
-export const counterReducer = (state: initialStateType = initialState, action: ActionsType): any => {
+export const counterReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case INCREMENT: {
             let counterInc=state.countValue + 1

@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from 'redux';
-import {counterReducer} from './counter-reducer';
+import {counterReducer} from './counterReducer';
 
 export type AppRootStateType= ReturnType<typeof rootReducer>
 
