@@ -11,6 +11,9 @@ export type CounterType = {
 }
 
 export const Counter = React.memo((props: CounterType) => {
+        const incButtonTitle = 'Inc';
+        const resButtonTitle = 'Res';
+
         const counterClassName = props.counterLimited ? 'countValue Limited' : 'countValue';
 
         return props.editMode ?
@@ -21,8 +24,8 @@ export const Counter = React.memo((props: CounterType) => {
                     className={counterClassName}>{props.countValue}</span>
                 </div>
                 <div className="buttonBox">
-                    <Button id={1} onClickCallback={props.incrementCountCB} name={'Inc'} disabled={props.counterLimited}/>
-                    <Button id={2} onClickCallback={props.resetCountCB} name={'Res'} disabled={!props.counterLimited}/>
+                    <Button id={1} onClickCallback={props.incrementCountCB} title={incButtonTitle} disabled={props.counterLimited}/>
+                    <Button id={2} onClickCallback={props.resetCountCB} title={resButtonTitle} disabled={!props.counterLimited}/>
                 </div>
             </div>;
     }
