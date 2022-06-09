@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from './button';
 import {Input} from './input';
+import {Button} from './button';
 
 
 type SetCounterType = {
@@ -14,16 +14,20 @@ type SetCounterType = {
 
 
 export const CounterSettings = React.memo((props: SetCounterType) => {
+            const inputMaxValueTitle='Max Value'
+            const inputMinValueTitle='Min Value'
+            const setButtonTitle='Set'
+
             return (
                 <div className={'counterBody'}>
                     <div className={'counterBody_box'}>
-                        <Input title={'Max Value'} value={props.inputMaxValue} callback={props.onChangeHandlerSetMaxValue}
+                        <Input title={inputMaxValueTitle} value={props.inputMaxValue} callback={props.onChangeHandlerSetMaxValue}
                                error={props.inputError}/>
-                        <Input title={'Min Value'} value={props.inputMinValue} callback={props.onChangeHandlerSetMinxValue}
+                        <Input title={inputMinValueTitle} value={props.inputMinValue} callback={props.onChangeHandlerSetMinxValue}
                                error={props.inputError}/>
                     </div>
                     <div className={'buttonBox'}>
-                        <Button id={3} onClickCallback={props.setInputValue} name={'Set'} disabled={props.inputError}/>
+                        <Button id={3} onClickCallback={props.setInputValue} title={setButtonTitle} disabled={props.inputError}/>
                     </div>
 
                 </div>
