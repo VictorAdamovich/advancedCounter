@@ -51,13 +51,12 @@ export const App = () => {
                 onChangeHandlerSetMaxValue={onChangeHandlerSetMaxValue}
                 onChangeHandlerSetMinxValue={onChangeHandlerSetMinxValue}
             />
-
             <Counter
                 editMode={editMode}
                 countValue={countValue}
                 counterLimited={counterLimited}
-                incrementCountCB={incrementCountCB}
                 resetCountCB={resetCountCB}
+                incrementCountCB={incrementCountCB}
             />
         </div>
     );

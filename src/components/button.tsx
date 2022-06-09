@@ -7,13 +7,13 @@ type ButtonType = {
     disabled?: boolean
 }
 
-export const Button = React.memo((props: ButtonType) => {
+export const Button = React.memo(({id, title, onClickCallback, disabled}: ButtonType) => {
         return (
             <div>
                 <button
-                    key={props.id}
-                    onClick={props.onClickCallback}
-                    disabled={props.disabled}>{props.title}</button>
+                    key={id}
+                    onClick={onClickCallback}
+                    disabled={disabled}>{title}</button>
             </div>
         );
     }

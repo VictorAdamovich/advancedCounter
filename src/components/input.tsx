@@ -8,12 +8,12 @@ type InitValueType = {
 }
 
 
-export const Input = (props: InitValueType) => {
-    const onChangeCallback = (event: React.ChangeEvent<HTMLInputElement>) => props.callback(Number(event.target.value))
+export const Input = ({title,value,callback,error}: InitValueType) => {
+    const onChangeCallback = (event: React.ChangeEvent<HTMLInputElement>) => callback(Number(event.target.value))
     return (
         <div className={'inputValue'}>
-            <span>{props.title}</span>
-            <input className={props.error?'input_box error':'input_box'} type="number" value={props.value} onChange={onChangeCallback} />
+            <span>{title}</span>
+            <input className={error?'input_box error':'input_box'} type="number" value={value} onChange={onChangeCallback} />
         </div>
     );
 };
